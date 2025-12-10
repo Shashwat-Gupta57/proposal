@@ -3,60 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposal for Apoorva</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Sarvagy's Flirty Proposal to Apoorva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffe6f0, #ffb3ba, #ffcccc);
+            color: #333;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .hero img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #fff;
+            margin: 10px 0;
+        }
+        .section {
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-in;
+        }
+        .section h2 {
+            color: #ff6b9d;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section .photos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .section img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .compliments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .compliment {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .compliment:hover {
+            transform: scale(1.05);
+        }
+        .proposal {
+            text-align: center;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .proposal h2 {
+            font-size: 2.5em;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .proposal p {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 150px;
+        }
+        #yes-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+        }
+        #yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        #no-btn {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            position: relative;
+        }
+        #no-btn:hover {
+            transform: scale(1.1);
+        }
+        .final-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffe6f0, #ffb3ba);
+            z-index: 1000;
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        .final-page h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .final-page p {
+            font-size: 1.5em;
+            color: #fff;
+            margin: 20px 0;
+        }
+        .final-page img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 20px;
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 2em;
+            animation: float 3s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .wiggle {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: none;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .flirty-note {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>A Special Message for Apoorva Maurya 💕</h1>
-        </header>
-        
-        <section class="intro">
-            <p>Hey Apoorva, with your dusky skin that glows like a sunset, your humor that could make even a rock laugh, and that charm that lights up any room... you're basically a walking emoji of perfection! 😍</p>
-            <p>And let's not forget, your personality is the cherry on top of the world's best sundae. What do you say?</p>
+        <section class="hero">
+            <img src="res/photo-1.png" alt="Apoorva">
+            <h1>Hey Apoorva, My Flirty Mard! 💕</h1>
+            <p>From your cheeky gharwali Sarvagy, who can't stop staring at your dusky glow and dreaming of your 5'5" of perfection. I'm 5'7" of pure flirtation – ready to sweep you off your feet? 😘</p>
         </section>
-        
-        <section class="buttons">
-            <button id="yes-btn" class="btn yes-btn">Yes, of course! 💖</button>
-            <button id="no-btn" class="btn no-btn">Umm… no? 😏</button>
-        </section>
-        
-        <div id="message-popup" class="message-popup"></div>
-        
-        <div id="celebration-overlay" class="celebration-overlay">
-            <div class="celebration-content">
-                <h2>You just made me the happiest person alive! 🎉</h2>
-                <p>My future kids thank you in advance. 👶</p>
-                <p>Apoorva, you’re legally required to smile right now. 😊</p>
-                <p>Your humor + my height advantage (I'm 5'7" with fair skin, by the way) = perfect couple math. 🧮❤️</p>
-                <p>Love, Sarvagy Jaiswal</p>
-            </div>
-        </div>
-        
-        <!-- Optional Sections -->
-        <section class="how-we-met">
-            <h2>How We Met</h2>
-            <p>[Placeholder: Add a fun story here. Upload photos or text about your first meeting!]</p>
-        </section>
-        
-        <section class="photos">
-            <h2>Our Photos</h2>
-            <div class="photo-grid">
-                <div class="photo-placeholder">[Photo 1: Upload a cute pic of us!]</div>
-                <div class="photo-placeholder">[Photo 2: Another one!]</div>
+
+        <section class="section">
+            <h2>Why You're My Everything 💖</h2>
+            <div class="compliments">
+                <div class="compliment">
+                    <p>Your dusky skin is like a sunset I never want to end – mesmerizing and warm. 🌅</p>
+                </div>
+                <div class="compliment">
+                    <p>Your humor? It's the spark that lights up my world, making every moment hilarious and heartwarming. 😂❤️</p>
+                </div>
+                <div class="compliment">
+                    <p>At 5'5", you're the perfect height for me to whisper sweet nothings into your ear. 😉</p>
+                </div>
+                <div class="compliment">
+                    <p>Your smile could melt the coldest heart – and mine's already yours. 😍</p>
+                </div>
+                <div class="compliment">
+                    <p>Being with you feels like a flirty adventure every day. Let's make it forever! 🌟</p>
+                </div>
+                <div class="compliment">
+                    <p>Your charm is irresistible – I'm hooked, line and sinker. 🪝💕</p>
+                </div>
             </div>
         </section>
-        
-        <section class="gallery">
-            <h2>Fun Timeline</h2>
-            <ul>
-                <li>[Event 1: Placeholder for a timeline item]</li>
-                <li>[Event 2: Add more fun memories!]</li>
-            </ul>
+
+        <section class="section">
+            <h2>Our Flirty First Meetup: The Park Tease 🌳</h2>
+            <p>Remember that park day, Apoorva? You were teasing me with your laughs, and I was falling head over heels for your dusky allure. You called me your 'aurat' that day – little did you know, I was already yours! 😏</p>
+            <img src="res/photo-2.png" alt="Park Meetup">
+            <div class="flirty-note">P.S. Your eyes sparkled more than the stars that night. 🌟</div>
+        </section>
+
+        <section class="section">
+            <h2>Shashwat’s Birthday: Where the Magic Sparked 🎉</h2>
+            <p>At Shashwat’s bash, you were the flirty queen, my mard! Your jokes had me blushing, and I couldn't resist your charm. This group pic? It's our start to something epic. (I was secretly planning to steal your heart then!) 😉</p>
+            <img src="res/photo-11.jpg" alt="Group Photo">
+            <div class="flirty-note">Your laughter is my favorite sound – let's make more music together. 🎶</div>
+        </section>
+
+        <section class="section">
+            <h2>Flirty Moments: Part 1 😘</h2>
+            <div class="photos">
+                <img src="res/photo-3.png" alt="Apoorva">
+                <img src="res/photo-4.png" alt="Apoorva">
+            </div>
+            <p>These pics capture your playful side, Apoorva – the way you light up any room with your dusky charm. I'm addicted to your vibe! 💃</p>
+            <div class="flirty-note">If flirting was an art, you'd be Picasso – creative, bold, and utterly captivating. 🎨</div>
+        </section>
+
+        <section class="section">
+            <h2>Flirty Moments: Part 2 💑</h2>
+            <div class="photos">
+                <img src="res/photo-5.png" alt="Apoorva">
+                <img src="res/photo-6.png" alt="Apoorva">
+            </div>
+            <p>Look at you, my mard – owning every moment with that 5'5" confidence. My fair skin might be jealous of your glow! 😜</p>
+            <div class="flirty-note">Your presence is like a magnet – I can't stay away, and I don't want to. 🧲❤️</div>
+        </section>
+
+        <section class="section">
+            <h2>Flirty Moments: Part 3 🌟</h2>
+            <div class="photos">
+                <img src="res/photo-7.png" alt="Apoorva">
+                <img src="res/photo-8.png" alt="Apoorva">
+            </div>
+            <p>These smiles of yours? They're my daily dose of happiness. Let's turn them into forever memories! 📸</p>
+            <div class="flirty-note">Flirting with you is my favorite pastime – and now I want it full-time. 😉</div>
+        </section>
+
+        <section class="section">
+            <h2>Flirty Moments: Part 4 💕</h2>
+            <div class="photos">
+                <img src="res/photo-9.png" alt="Apoorva">
+                <img src="res/photo-10.png" alt="Apoorva">
+            </div>
+            <p>Your humor shines through in every pic, Apoorva. I'm the luckiest guy to have you as my gharwali! 😂</p>
+            <div class="flirty-note">With you, every day feels like a romantic movie – and I'm the leading man. 🎥</div>
+        </section>
+
+        <section class="section">
+            <h2>Fun Flirts About Us 😘</h2>
+            <p>Apoorva, you're the spice in my life, and I'm the fair-skinned goofball who adores every bit of you. From your 5'5" sass to my 5'7" charm, we're a perfect match! Let's add some romance to the mix. 💑</p>
+            <div class="flirty-note">If you were a fruit, you'd be a fine-apple – sweet, juicy, and utterly irresistible. 🍎</div>
+        </section>
+
+        <section class="proposal">
+            <h2>Be My Flirty Forever? 💍</h2>
+            <p>Apoorva, my mard, your humor, charm, and that dusky glow have me completely smitten. Say yes and let's turn up the flirt game! (No? Oh, you'll change your mind...) 😜</p>
+            <div class="buttons">
+                <button id="yes-btn">Yes, My Love! 💖</button>
+                <button id="no-btn">No Way, Handsome! 😏</button>
+            </div>
         </section>
     </div>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+
+    <div class="final-page" id="final-page">
+        <h1>Yay! You've Made Me the Flirtiest Guy Alive! 🎉</h1>
+        <p>Thank you for saying yes, my mard Apoorva. Your humor, your charm, your smile, your dusky beauty – everything about you makes my heart race and life feel like a romantic comedy. I love flirting with you, and now I get to do it forever! 💕</p>
+        <img src="res/photo-3.png" alt="Apoorva">
+        <img src="res/photo-4.png" alt="Apoorva">
+        <img src="res/photo-5.png" alt="Apoorva">
+        <p>You're my everything, my gharwali. Let's create flirty memories, sweet kisses, and endless laughter. Forever yours, Sarvagy. 😍❤️</p>
+        <div class="flirty-note">P.S. Your 'no' was just a tease – I knew you'd say yes! 😉</div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    <div class="popup" id="popup">Arre, no flirting with rejection! 😜</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const finalPage = document.getElementById('final-page');
+        const popup = document.getElementById('popup');
+        const hearts = document.getElementById('hearts');
+
+        let noClicks = 0;
+        const messages = [
+            "Arre, no flirting with rejection! 😜",
+            "Try again, my mard! 😉",
+            "System says NO is not an option. 🚫",
+            "You're too cute to say no! 💕",
+            "Come on, say yes and let's flirt! 😂"
+        ];
+
+        noBtn.addEventListener('click', () => {
+            // Teleport to random position, preferring upper half of the screen
+            const proposal = document.querySelector('.proposal');
+            const rect = proposal.getBoundingClientRect();
+            const x = Math.random() * (rect.width - 150) + rect.left;
+            const y = Math.random() * (rect.height / 2 - 50) + rect.top; // Upper half
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+
+            // Wiggle animation
+            noBtn.classList.add('wiggle');
+            setTimeout(() => noBtn.classList.remove('wiggle'), 500);
+
+            // Show popup
+            popup.textContent = messages[noClicks % messages.length];
+            popup.style.display = 'block';
+            setTimeout(() => popup.style.display = 'none', 2000);
+
+            noClicks++;
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // Confetti explosion
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            // Floating hearts
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤️';
+		heart.style.left = Math.random() * 100 + '%';
+		heart.style.animationDelay = Math.random() * 3 + 's';
+ 		hearts.appendChild(heart);
+ 		setTimeout(() => heart.remove(), 3000);
+ 	}
+        // Transition to final page
+        setTimeout(() => {
+            document.querySelector('.container').style.display = 'none';
+            finalPage.style.display = 'block';
+        }, 1000);
+    });
+</script>
