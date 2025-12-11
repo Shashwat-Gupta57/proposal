@@ -377,7 +377,7 @@
     <script>
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', (e) => {
-    if (e.key === "F11" ||
+    if (e.key === "F12" ||
         (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
         (e.ctrlKey && e.key === "U")
     ) {
@@ -391,21 +391,29 @@ const landingPage = document.getElementById('landing-page');
 const launchBtn = document.getElementById('launch-btn');
 const PASSCODE = "Project Nemo : Finding Sarvagy";  // change this to whatever you want
 
+let passFailCount = 0;
+
+const pageLoadTime = performance.now();
+
+function getTotalTime() {
+    return (performance.now() - pageLoadTime) / 1000; // seconds
+}
+
+
 launchBtn.addEventListener('click', () => {
     const input = prompt("Enter the special passcode to access:");
-
     if (input !== PASSCODE) {
         alert("Incorrect passcode. Access denied.");
+        passFailCount++;
         return;
     }
 
     landingPage.style.display = 'none';
-
     bgMusic.currentTime = 25;
     bgMusic.play().catch(err => console.log('Music blocked:', err));
-
     document.querySelector('.container').style.display = 'block';
 });
+
 
 
 
@@ -436,6 +444,33 @@ launchBtn.addEventListener('click', () => {
             "You're too cute to say no! 💕",
             "Come on, say yes and let's flirt! 😂"
         ];
+
+const sectionTimes = {};
+const sectionViews = {};
+let sectionEntryTime = {};
+
+const sections = document.querySelectorAll('.section, .hero, .proposal');
+sections.forEach(section => {
+    const key = section.id || section.innerText.slice(0,20);
+    sectionTimes[key] = 0;
+    sectionViews[key] = 0;
+});
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const key = entry.target.id || entry.target.innerText.slice(0,20);
+        if (entry.isIntersecting) {
+            sectionEntryTime[key] = performance.now();
+            sectionViews[key] += 1;
+        } else if (sectionEntryTime[key]) {
+            sectionTimes[key] += (performance.now() - sectionEntryTime[key]) / 1000;
+            sectionEntryTime[key] = null;
+        }
+    });
+}, { threshold: 0.5 });
+
+sections.forEach(section => observer.observe(section));
+
 
         noBtn.addEventListener('click', () => {
 	    
@@ -495,26 +530,20 @@ const database = firebase.database();
  	}
  const yesRef = database.ref('proposal_responses');
 
-// Format timestamp in human-readable IST
-const timestampIST = new Date().toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    hour12: false
-});
-
-// Basic non-identifying metadata
-const userAgent = navigator.userAgent;     // Browser info string
-const platform = navigator.platform;       // OS/platform info
-const language = navigator.language;       // Browser language
-
-yesRef.push({
-    name: 'Apoorva',
-    response: 'yes',
-    timestamp_raw_utc: new Date().toISOString(),
-    timestamp_ist: timestampIST,
-    browser_user_agent: userAgent,
-    platform: platform,
-    language: language
-});
+    yesRef.push({
+        name: 'Apoorva',
+        response: 'yes',
+        timestamp_raw_utc: new Date().toISOString(),
+        timestamp_ist: new Date().toLocaleString("en-IN", {timeZone: "Asia/Kolkata", hour12:false}),
+        browser_user_agent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        noClicks: noClicks,
+        passFailCount: passFailCount,
+        totalTime: getTotalTime(),
+        sectionTimes: sectionTimes,
+        sectionViews: sectionViews
+    });
 
         // Transition to final page
         setTimeout(() => {
