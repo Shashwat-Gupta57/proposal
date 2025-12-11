@@ -19,6 +19,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+	    display: none; /* hidden until passphrase entered */
         }
         .hero {
             text-align: center;
@@ -247,7 +248,7 @@
         </section>
 
         <section class="section">
-            <h2>Why You're My Everything 💖</h2>
+            <h2>What I Love Most About You 💖</h2>
             <div class="compliments">
                 <div class="compliment">
                     <p>Your dusky skin is like a sunset I never want to end – mesmerizing and warm. 🌅</p>
@@ -271,7 +272,7 @@
         </section>
 
         <section class="section">
-            <h2>Our Flirty First Meetup: The Park Tease 🌳</h2>
+            <h2>That Day in the Park I'll Never Forget 🌳</h2>
             <p>Remember that park day, Apoorva? You were teasing me with your laughs, and I was falling head over heels for your dusky allure. You called me your 'aurat' that day – little did you know, I was already yours! 😏</p>
             <img src="res/photo-2.png" alt="Park Meetup">
             <div class="flirty-note">P.S. Your eyes sparkled more than the stars that night. 🌟</div>
@@ -285,7 +286,7 @@
         </section>
 
         <section class="section">
-            <h2>Flirty Moments: Part 1 😘</h2>
+            <h2>Little Moments That Made Me Fall for You 😘</h2>
             <div class="photos">
                 <img src="res/photo-3.png" alt="Apoorva">
                 <img src="res/photo-4.png" alt="Apoorva">
@@ -295,7 +296,7 @@
         </section>
 
         <section class="section">
-            <h2>Flirty Moments: Part 2 💑</h2>
+            <h2>More Memories I Keep Close to My Heart 💑</h2>
             <div class="photos">
                 <img src="res/photo-5.png" alt="Apoorva">
                 <img src="res/photo-6.png" alt="Apoorva">
@@ -305,7 +306,7 @@
         </section>
 
         <section class="section">
-            <h2>Flirty Moments: Part 3 🌟</h2>
+            <h2>Your Smile in Every Moment 🌟</h2>
             <div class="photos">
                 <img src="res/photo-7.png" alt="Apoorva">
                 <img src="res/photo-8.png" alt="Apoorva">
@@ -315,7 +316,7 @@
         </section>
 
         <section class="section">
-            <h2>Flirty Moments: Part 4 💕</h2>
+            <h2>The Side of You I Can’t Stop Adoring 💕</h2>
             <div class="photos">
                 <img src="res/photo-9.png" alt="Apoorva">
                 <img src="res/photo-10.png" alt="Apoorva">
@@ -325,13 +326,13 @@
         </section>
 
         <section class="section">
-            <h2>Fun Flirts About Us 😘</h2>
+            <h2>Us — In Our Own Silly, Perfect Way 😘</h2>
             <p>Apoorva, you're the spice in my life, and I'm the fair-skinned goofball who adores every bit of you. From your 5'5" sass to my 5'7" charm, we're a perfect match! Let's add some romance to the mix. 💑</p>
             <div class="flirty-note">If you were a fruit, you'd be a fine-apple – sweet, juicy, and utterly irresistible. 🍎</div>
         </section>
 
         <section class="proposal">
-            <h2>Be My Flirty Forever? 💍</h2>
+            <h2>So… Will You Make This Official With Me? 💍</h2>
             <p>Apoorva, my mard, your humor, charm, and that dusky glow have me completely smitten. Say yes and let's turn up the flirt game! (No? Oh, you'll change your mind...) 😜</p>
             <div class="buttons">
                 <button id="yes-btn">Yes, My Love! 💖</button>
@@ -358,21 +359,52 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', (e) => {
+    if (e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        (e.ctrlKey && e.key === "U")
+    ) {
+        e.preventDefault();
+        alert("Action disabled.");
+    }
+});
+
+let ACCESS_GRANTED = false;
 const bgMusic = document.getElementById('bg-music');
 const landingPage = document.getElementById('landing-page');
 const launchBtn = document.getElementById('launch-btn');
+const PASSCODE = "ProjectNemo38579-11250";  // change this to whatever you want
 
 launchBtn.addEventListener('click', () => {
-    // Hide landing page
+    const input = prompt("Enter the special passcode to access:");
+
+    if (input !== PASSCODE) {
+        alert("Incorrect passcode. Access denied.");
+        return;
+    }
+
     landingPage.style.display = 'none';
 
-    // Start music from 25 seconds
     bgMusic.currentTime = 25;
     bgMusic.play().catch(err => console.log('Music blocked:', err));
 
-    // Show main container
     document.querySelector('.container').style.display = 'block';
 });
+
+
+
+//launchBtn.addEventListener('click', () => {
+    // Hide landing page
+//    landingPage.style.display = 'none';
+
+    // Start music from 25 seconds
+//    bgMusic.currentTime = 25;
+//    bgMusic.play().catch(err => console.log('Music blocked:', err));
+
+    // Show main container
+//    document.querySelector('.container').style.display = 'block';
+//});
 
 
         const noBtn = document.getElementById('no-btn');
@@ -391,6 +423,11 @@ launchBtn.addEventListener('click', () => {
         ];
 
         noBtn.addEventListener('click', () => {
+	    if (!ACCESS_GRANTED) {
+	        alert("Unauthorized access blocked.");
+	        return;
+	    }
+
             // Teleport to random position, preferring upper half of the screen
             const proposal = document.querySelector('.proposal');
             const rect = proposal.getBoundingClientRect();
@@ -426,8 +463,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-
         yesBtn.addEventListener('click', () => {
+if (!ACCESS_GRANTED) {
+    alert("Unauthorized access blocked.");
+    return;
+}
             // Confetti explosion
             confetti({
                 particleCount: 100,
@@ -445,13 +485,29 @@ const database = firebase.database();
  		hearts.appendChild(heart);
  		setTimeout(() => heart.remove(), 3000);
  	}
- // Write a timestamp to Firebase when she clicks yes
-    const yesRef = database.ref('proposal_responses');
-    yesRef.push({
-        name: 'Apoorva',
-        response: 'yes',
-        timestamp: new Date().toISOString()
-    });
+ const yesRef = database.ref('proposal_responses');
+
+// Format timestamp in human-readable IST
+const timestampIST = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour12: false
+});
+
+// Basic non-identifying metadata
+const userAgent = navigator.userAgent;     // Browser info string
+const platform = navigator.platform;       // OS/platform info
+const language = navigator.language;       // Browser language
+
+yesRef.push({
+    name: 'Apoorva',
+    response: 'yes',
+    timestamp_raw_utc: new Date().toISOString(),
+    timestamp_ist: timestampIST,
+    browser_user_agent: userAgent,
+    platform: platform,
+    language: language
+});
+
 
         // Transition to final page
         setTimeout(() => {
@@ -459,4 +515,11 @@ const database = firebase.database();
             finalPage.style.display = 'block';
         }, 1000);
     });
+setInterval(() => {
+    if (!ACCESS_GRANTED) {
+        document.querySelector('.container').style.display = 'none';
+        document.getElementById('final-page').style.display = 'none';
+    }
+}, 300);
+
 </script>
