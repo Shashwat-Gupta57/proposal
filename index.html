@@ -441,21 +441,28 @@
             /* display: flex; */
             justify-content: center;
             align-items: center;
+
+             /* allow scrolling inside overlay on mobile */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
         }
 
         .intro-stage {
-            text-align: center;
-            display: none;
-            animation: fadeIntro 0.8s ease forwards;
+    margin: 40px auto;              /* small vertical margins */
+    text-align: center;
+    display: none;
+    animation: fadeIntro 0.8s ease forwards;
 
-            /* Center all internal elements and avoid them sticking left */
-            width: 100%;
-            max-width: 800px;
+    width: 100%;
+    max-width: 800px;
 
-            /* display: flex; */
-            flex-direction: column;
-            align-items: center;
-        }
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    /* remove strict vertical centering that can hide overflow */
+    justify-content: flex-start;
+}
+
 
 
         .intro-title {
