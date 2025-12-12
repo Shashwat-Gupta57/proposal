@@ -18,6 +18,7 @@
         }
 
         .container {
+            display: none;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -422,6 +423,98 @@
                 transform: rotateY(360deg);
             }
         }
+
+
+        /* SO After This Is The Section For The Cards Intro section*/
+        
+        #intro-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #ffe6f0;
+    display: none;
+    z-index: 3000;
+
+    /* The important part */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-stage {
+    text-align: center;
+    display: none;
+    animation: fadeIntro 0.8s ease forwards;
+
+    /* Center all internal elements and avoid them sticking left */
+    width: 100%;
+    max-width: 800px;
+
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.intro-title {
+    font-size: 2.5em;
+    color: #ff4081;
+    margin-bottom: 15px;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.intro-button {
+    padding: 15px 40px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #ff4f92;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.love-letter {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    animation: slideUp 0.7s ease;
+}
+
+.letter-heading {
+    font-size: 1.8em;
+    color: #ff2e74;
+}
+
+.letter-text {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #333;
+    white-space: pre-line;
+}
+
+.letter-sign {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ff4f92;
+}
+
+@keyframes fadeIntro {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity:0; transform: translateY(40px); }
+    to   { opacity:1; transform: translateY(0); }
+}
+
     </style>
 </head>
 
@@ -434,6 +527,66 @@
         <button id="launch-btn"
             style="padding:20px 40px;font-size:1.5em;border:none;border-radius:50px;background:linear-gradient(45deg,#ff6b9d,#c44569);color:white;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.2);">Open</button>
     </div>
+
+    <!-- Intro Overlay (hidden until passcode success) -->
+<div id="intro-overlay">
+
+    <!-- Stage 1 -->
+<div id="intro-stage-1" class="intro-stage">
+    <h1 class="intro-title">Congratulations… You Just Unlocked My Heart ❤️</h1>
+
+    <p class="intro-text" style="max-width: 700px;">
+        Before the real website opens, I want you to pause for a moment.
+        Today isn’t a birthday, it isn’t an anniversary, it isn’t a festival —
+        it’s simply a day I chose to tell you what my heart has been wanting to say
+        for so long.  
+        You are special to me in a way that even my words struggle to express.
+        And everything you’re about to see… I made it only for you.
+    </p>
+
+    <!-- Looping Video Placeholder -->
+    <video id="intro-video" width="360" height="360" autoplay muted loop playsinline
+        style="border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
+        <source src="res/gif-1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <button id="intro-btn-1" class="intro-button">Continue</button>
+</div>
+
+
+   <!-- Stage 2 -->
+<div id="intro-stage-2" class="intro-stage">
+    <div class="love-letter">
+        <h2 class="letter-heading">To My Love ❤️</h2>
+
+        <p class="letter-text">
+            I want to be honest with you in a way I’ve never been before.
+            Somewhere between our jokes, our chaos, our effortless connection,
+            and the small moments that felt bigger than they should…  
+            I found myself caring about you in a way that is deeper, softer,
+            and truer than I expected.
+
+            This isn’t a birthday message or a casual note.
+            This is my very first love letter to you.
+
+            You make my days warmer, my thoughts louder, and my heart quieter
+            all at once.  
+            You make me look forward to things that used to feel ordinary.  
+            And I don’t know when it happened, but being around you just feels right.
+
+            If feelings had a gravity, yours would be the one mine keeps falling toward.
+        </p>
+
+        <p class="letter-sign">Yours — more than you realize. ❤️</p>
+    </div>
+
+    <button id="intro-btn-2" class="intro-button">Take Me In</button>
+</div>
+
+
+</div>
+
 
     <div class="container">
         <section class="hero">
@@ -597,6 +750,7 @@
 
 
 
+
         <p>You're my everything, my gharwali. Let's create flirty memories, sweet kisses, and endless laughter. Forever
             yours, Sarvagy. 😍❤️</p>
         <div class="flirty-note">P.S. Your 'no' was just a tease – I knew you'd say yes! 😉</div>
@@ -623,7 +777,7 @@
             const bgMusic = document.getElementById('bg-music');
             const landingPage = document.getElementById('landing-page');
             const launchBtn = document.getElementById('launch-btn');
-            const PASSCODE = "projectnemo@sjam";  // change this to whatever you want
+            const PASSCODE = "projectnemo@sjam2";  // change this to whatever you want
 
             let passFailCount = 0;
 
@@ -655,13 +809,34 @@
                     passFailCount++;
                     return;
                 }
+                // Show Intro Screen Stage 1
+    document.getElementById("intro-overlay").style.display = "flex";
+    document.getElementById("intro-stage-1").style.display = "block";
                 document.title = "I Really Like You Apoorva";
                 landingPage.style.display = 'none';
                 bgMusic.currentTime = 25;
                 bgMusic.play().catch(err => console.log('Music blocked:', err));
-                document.querySelector('.container').style.display = 'block';
-                typeNext();
+                //document.querySelector('.container').style.display = 'block';
+                //typeNext();
             }, { once: true });
+            const intro1 = document.getElementById("intro-stage-1");
+const intro2 = document.getElementById("intro-stage-2");
+const overlay = document.getElementById("intro-overlay");
+const mainContainer = document.querySelector(".container");
+
+document.getElementById("intro-btn-1").addEventListener("click", () => {
+    intro1.style.display = "none";
+    intro2.style.display = "block";
+});
+
+document.getElementById("intro-btn-2").addEventListener("click", () => {
+    overlay.style.display = "none";
+    mainContainer.style.display = "block";
+
+    // Start hero title typing
+    typeNext();
+});
+
 
             // Update love meter as she scrolls
             const loveFill = document.querySelector('#love-meter .fill');
@@ -922,8 +1097,4 @@
             }
 
             rotateCarousel();
-
-
-
-
         </script>
