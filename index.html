@@ -1534,6 +1534,44 @@ function getTotalTime() {
                 // existing result text...
             }
 
+            function lgMoveHeartRandom() {
+    const areaRect  = lgArea.getBoundingClientRect();
+    const heartRect = lgHeart.getBoundingClientRect();
+
+    const maxX = areaRect.width  - heartRect.width;
+    const maxY = areaRect.height - heartRect.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    lgHeart.style.left = x + "px";
+    lgHeart.style.top  = y + "px";
+}
+
+function lgStartGameOnce() {
+    if (lgStarted) return;
+    lgStarted = true;
+
+    lgClicks = 0;
+    lgTimeLeft = 8;
+    lgResult.textContent = "";
+    lgMeter.style.width = "0%";
+    lgTimer.textContent = "Time left: 8s";
+
+    lgMoveHeartRandom();
+
+    lgTimerInterval = setInterval(() => {
+        lgTimeLeft--;
+        lgTimer.textContent = "Time left: " + lgTimeLeft + "s";
+        if (lgTimeLeft <= 0) {
+            lgEndGame();
+        }
+    }, 1000);
+
+    lgMoveInterval = setInterval(lgMoveHeartRandom, 600);
+}
+
+
             // --- Game 2: Perfect Timing ---
             let game2Played = false;
             let game2LastScore = null; // 'perfect' | 'close' | 'miss'
